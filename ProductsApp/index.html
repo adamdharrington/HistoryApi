@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>History App</title>
+</head>
+<body>
+
+    <div>
+        <h2>All Events</h2>
+        <ul id="events" />
+    </div>
+    <div>
+        <h3>Search close to: <span id="coords"></span></h3>
+        <label for="x">X:</label>
+        <input type="text" name="x" id="x" value="0" />
+        <label for="y">Y:</label>
+        <input type="text" name="y" id="y" value="0" />
+        <button id="searchBtn">Search</button>
+    </div>
+    <div>
+        <h2>Search by Category</h2>
+        <input type="text" id="eventCategory" size="5" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="results" />
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        var ds;
+        var uri = 'api'; // Corresponds to controller name
+        var searchHandler = function () {
+            var x = $('#x').val(),
+                y = $('#y').val();
+            searchRange(x, y);
+            $('#coords').text(x + " " + y);
+        }
+        var searchRange = function (x, y) {
+            var url = uri +"/3/" + x + "/" + y;
+            $.getJSON(url, function (data) {
+                var list = "";
+                $.each(data, function (key, item) {
+                    // Add a list item for the product.
+                    list +=
+                        "<div class='result'><h3>" +
+                        formatItem(item) + "</h3><p>" +
+                        item.Description +
+                        "</p></div>";
+                });
+                $('#results').html(list);
+            })
+        }
+        $(document).ready(function () {
+            // Send an AJAX request
+            $.getJSON(uri+"/events")
+                .done(function (data) {
+                    // On success, 'data' contains a list of products.
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        $('<li>', { text: formatItem(item) }).appendTo($('#events'));
+                    });
+                });
+            $('#searchBtn').on("click", searchHandler);
+        });
+
+        function formatItem(item) {
+            return item.Name + ' - ' + item.Category +" at "+ item.Latitude +" latitude "+ item.Longitude + " longitude.";
+        }
+
+        function find() {
+            var category = $('#eventCategory').val()
+                x = $('#x').val(),
+                y = $('#y').val();
+            $.getJSON(uri + "/3/" + x + "/" + y + '?category=' + category)
+                .done(function (data) {
+                    console.log(data);
+                    ds = data;
+                    var list = "";
+                    $.each(data, function (key, item) {
+                        // Add a list item for the product.
+                        list +=
+                            "<div class='result'><h3>" +
+                            formatItem(item) + "</h3><p>" +
+                            item.Description +
+                            "</p></div>";
+                    });
+                    $('#results').html(list);
+                })
+                .fail(function (jqXHR, textStatus, err) {
+                    $('#results').text('Error: ' + err);
+                });
+        }
+    </script>
+</body>
+</html>
