@@ -35,7 +35,9 @@ Another migration and the database is populated perfectly, queries work and all 
 
 Azure
 --------------
-Migrating to Azure test to follow.
+Migration to Azure was a pain! Basically, it all comes down to a thing called `PublishSettings` in the Azure management console. When creating a website from Azure you can set up your database automatically, however if you do so from Visual studio you must set up the database separately, link it to the website, copy database connection string (the top tcp one) and add it under `website` > `configure` > `Connection Strings` with the name equal to your DbContext.
+
+Also, after `updating` and `downloading` your new publish settings you must import these into your visual studio project in the the publish wizard *profile* section. The only other thing is to check the box to *execute code first migrations* for the selected DbContext, this poulates the database the first time the application runs (may take time). That should be it.
 
 Live version
 -----------------

@@ -128,7 +128,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\nci-testapi.pubxml" />
+    <None Include="Properties\PublishProfiles\nci-testapi - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\nci-testapi - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\nci-testapi - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\nci-testapi - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

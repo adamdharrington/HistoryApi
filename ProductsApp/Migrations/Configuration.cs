@@ -11,7 +11,7 @@ namespace HistoryApp.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(HistoryApp.Models.WebApiContext context)
