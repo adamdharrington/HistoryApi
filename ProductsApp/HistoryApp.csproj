@@ -108,6 +108,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Data\IEvents.cs" />
+    <Compile Include="Migrations\201404250949147_InitialCreate.cs" />
+    <Compile Include="Migrations\201404250949147_InitialCreate.Designer.cs">
+      <DependentUpon>201404250949147_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404251000497_DateTime2.cs" />
+    <Compile Include="Migrations\201404251000497_DateTime2.Designer.cs">
+      <DependentUpon>201404251000497_DateTime2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404251105551_GeoLocation.cs" />
+    <Compile Include="Migrations\201404251105551_GeoLocation.Designer.cs">
+      <DependentUpon>201404251105551_GeoLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIEvent.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +138,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404250949147_InitialCreate.resx">
+      <DependentUpon>201404250949147_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404251000497_DateTime2.resx">
+      <DependentUpon>201404251000497_DateTime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404251105551_GeoLocation.resx">
+      <DependentUpon>201404251105551_GeoLocation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
