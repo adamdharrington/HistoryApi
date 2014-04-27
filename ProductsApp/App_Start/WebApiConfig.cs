@@ -23,7 +23,10 @@ namespace HistoryApp
                 defaults: new
                 {
                     controller = "Events",
-                    category = RouteParameter.Optional
+                    category = RouteParameter.Optional,
+                    startdate = RouteParameter.Optional,
+                    enddate = RouteParameter.Optional,
+                    searchterm = RouteParameter.Optional
                 }
             );
             config.Routes.MapHttpRoute(

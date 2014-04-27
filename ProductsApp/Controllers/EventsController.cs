@@ -5,20 +5,61 @@ using System.Data.Entity.Spatial;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
+using HistoryApp.Models.ViewModels;
 
 namespace HistoryApp.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventsController : ApiController
     {
+        private WebApiContext db = new WebApiContext();
+
+
         private DbGeography formatLoc(double lat, double lon) 
         { 
             return DbGeography.FromText("POINT(" + lon.ToString().Replace(",", ".") + " " + lat.ToString().Replace(",", ".") + ")", 4326);
         }
 
-        private WebApiContext db = new WebApiContext();
+        private IEnumerable<APIEvent> GetEventsByTime(DateTime StartTime, DateTime EndTime) 
+        {
 
-        
+            var events = from e in db.Events
+                         where e.EndDate < EndTime
+                         where e.StartDate > StartTime
+                         select e;                     
+            return events;
+        }
+
+        private string formatJson(IEnumerable<APIEvent> results)
+        {
+            List<APIViewmodel> list = new List<APIViewmodel>();
+            JavaScriptSerializer s = new JavaScriptSerializer();
+            foreach ( var result in results)
+            {
+                var r = new APIViewmodel( result );
+                list.Add(r);
+            }
+ 
+            return s.Serialize(list);
+        }
+
+
+        // ===================== Public Interface ========================
+
+        // http://localhost:50931/4/5/6?startdate=01-01-1560&enddate=01-01-1950
+        [Route("api/{zoom}/{lat}/{lon}")]
+        [HttpGet]
+        public IHttpActionResult GetClosest(int zoom, Double lat, Double lon, string startdate, string enddate)
+        {
+            // POINT(Long Lat)
+            var s = DateTime.Parse(startdate);
+            var e = DateTime.Parse(enddate);
+            var results = formatJson(GetEventsByTime(s, e));
+
+            return Json(results);
+
+        }
 
         public IEnumerable<APIEvent> GetEventsByCategory(string category)
         {
