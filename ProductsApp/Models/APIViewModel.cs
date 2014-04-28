@@ -5,6 +5,8 @@ namespace HistoryApp.Models.ViewModels
     public class APIViewmodel
     {
 
+        // properties
+
 
         public String name { get; set; }
         public String description { get; set; }
@@ -14,6 +16,7 @@ namespace HistoryApp.Models.ViewModels
         public Object endDate { get; set; }
         public Object images { get; set; }
 
+        // constructor
 
         public APIViewmodel(APIEvent realEvent) 
         {

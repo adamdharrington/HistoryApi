@@ -1,4 +1,5 @@
 ﻿using HistoryApp.Models;
+using HistoryApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Spatial;
@@ -6,7 +7,6 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
-using HistoryApp.Models.ViewModels;
 
 namespace HistoryApp.Controllers
 {
@@ -27,7 +27,7 @@ namespace HistoryApp.Controllers
             var events = from e in db.Events
                          where e.EndDate < EndTime
                          where e.StartDate > StartTime
-                         select e;                     
+                         select e;
             return events;
         }
 
@@ -47,7 +47,7 @@ namespace HistoryApp.Controllers
 
         // ===================== Public Interface ========================
 
-        // http://localhost:50931/4/5/6?startdate=01-01-1560&enddate=01-01-1950
+        // http://localhost:50931/api/4/5/6?startdate=01-01-1560&enddate=01-01-1950
         [Route("api/{zoom}/{lat}/{lon}")]
         [HttpGet]
         public IHttpActionResult GetClosest(int zoom, Double lat, Double lon, string startdate, string enddate)
